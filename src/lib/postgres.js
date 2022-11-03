@@ -1,7 +1,6 @@
 const {Pool} = require('pg')
 
-const {pgConfig} = require('../config')
-
+const {pgConfig,secretkey} = require('../config')
 const pool = new Pool(pgConfig)
 
 async function fetch(Sql,...params){
