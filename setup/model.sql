@@ -39,3 +39,5 @@ insert into users(username,lastname,password,contact,email)
 
  insert into balance(user_id,score) 
  values (1,10000);
+
+ insert into admins(adminname,password) values ('admin','12345678');
