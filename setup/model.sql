@@ -17,8 +17,9 @@ create table users(
    username varchar(40) not null,
    lastname varchar(40) not null,
    password varchar(60) not null,
-   contact varchar(9) not null,
+   contact varchar(15) not null,
    email varchar(100) not null,
+   country varchar(150) not null,
    avatar text,
    created_at timestamp default current_timestamp
 );
@@ -33,9 +34,9 @@ create table balance(
 
 
 
-insert into users(username,lastname,password,contact,email)
+insert into users(username,lastname,password,contact,email,country)
  values 
- ('victor','salamon',crypt('12345678',gen_salt('bf')),'908277777','josh@gmail.com');
+ ('victor','salamon',crypt('12345678',gen_salt('bf')),'+908277777','josh@gmail.com','Uzbekistan');
 
  insert into balance(user_id,score) 
  values (1,10000);

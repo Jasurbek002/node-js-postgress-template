@@ -37,7 +37,7 @@ const REGISTER = async (req,res) =>{
             token:sign({id:user.user_id,date:new Date()})
         })
     }else{
-        res.status(200).json({
+        res.status(404).json({
             status:404,
             message:'error',
             token:null

@@ -52,9 +52,9 @@ try {
 }
 }
 
-const REGISTER = async ({username,lastname,password,contact,email}) =>{
+const REGISTER = async ({username,lastname,password,contact,email,country}) =>{
     try {
-        let user = await fetch(GETREGISTER,username,lastname,password,contact,email)
+        let user = await fetch(GETREGISTER,username,lastname,password,contact,email,country)
         return user
     } catch (error) {
         console.log(error)
