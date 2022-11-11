@@ -1,7 +1,7 @@
 
 const {timeVerify,verify} = require('../../lib/jwt.js')
 const {fetch} =  require('../../lib/postgres.js')
-const {GETLOGIN,GETREGISTER,GETUSER,GETPOST,PUTBALANCE} = require('./query.js')
+const {GETLOGIN,GETREGISTER,GETUSER,GETPOST,PUTBALANCE, SETBALANCE} = require('./query.js')
 
 
 const GET = async ({token}) =>{
@@ -9,7 +9,9 @@ const GET = async ({token}) =>{
     let {id} = verify(token)
     try {
         let user = await fetch(GETUSER,id)
+        console.log(user)
         delete user.password
+       
         return user
     } catch (error) {
         console.log(error)
@@ -52,9 +54,10 @@ try {
 }
 }
 
-const REGISTER = async ({username,lastname,password,contact,email,country}) =>{
+const REGISTER = async ({username,lastname,password,contact,email,country,brithday}) =>{
     try {
-        let user = await fetch(GETREGISTER,username,lastname,password,contact,email,country)
+        let user = await fetch(GETREGISTER,username,lastname,password,contact,email,country,brithday)
+                   await fetch(SETBALANCE,user.user_id)
         return user
     } catch (error) {
         console.log(error)
