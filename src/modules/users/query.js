@@ -6,7 +6,7 @@ select u.* from users as u where email = $1 and password = crypt($2, u.password)
 
 const GETREGISTER = `
 insert into users(username,lastname,password,contact,email,country) 
-values ($1,$2,$3,$4,$5,$6) returning *
+values ($1,$2,crypt($3,gen_salt('bf')),$4,$5,$6) returning *
 `
 const GETUSER = `
 select u.*,b.* from users as u

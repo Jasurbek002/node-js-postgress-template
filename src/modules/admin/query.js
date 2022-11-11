@@ -2,7 +2,7 @@ const GETLOGIN = `
 select * from admin as a where username = $1 password = ($2,crypto(gen_salt))
 `
 const GETREGISTER = `
-insert into admin(adminname,password) values($1,$2) returning *
+insert into admin(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
 `
 const GET = `
 select * from users
