@@ -1,5 +1,5 @@
 const {fetch} =  require('../../lib/postgres.js')
-const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER}  = require('./query.js')
+const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT}  = require('./query.js')
 
 const GET = async () =>{
     try {
@@ -10,10 +10,13 @@ const GET = async () =>{
     }
 }
 
-const PUT_USER = async ({score},{userId}) =>{
+const PUT_USER = async ({username,lastname,password,email,score},{userId}) =>{
     try {
+        let user = await fetch(PUT_USER_ACCOUNT,username,lastname,password,email,userId)
         let putUser = await fetch(PUTUSER,score,userId)
-        return putUser
+        user.balance = putUser.score
+        delete user.password
+        return user
     } catch (error) {
         console.log(error)
     }
@@ -32,9 +35,9 @@ const PUT = async ({adminname,password,status},{adminId}) =>{
     }
 }
 
-const LOGIN = async ({username,password}) =>{
+const LOGIN = async ({adminname,password}) =>{
     try {
-        let admin =  await fetch(GETLOGIN,username,password)
+        let admin =  await fetch(GETLOGIN,adminname,password)
         return admin  
     } catch (error) {
         console.log(error)

@@ -1,8 +1,8 @@
 const GETLOGIN = `
-select * from admin as a where username = $1 password = ($2,a.password)
+select a.* from admins as a where adminname = $1 and password = crypt($2,a.password)
 `
 const GETREGISTER = `
-insert into admin(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
+insert into admins(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
 `
 const GET = `
 select * from users
@@ -11,11 +11,15 @@ const PUTUSER = `
 update balance  SET score = $1 
 where user_id = $2 returning *
 `
+const PUT_USER_ACCOUNT = `
+update users SET username = $1, lastname = $2, password = crypt($3,gen_salt('bf')), email = $4
+where user_id = $5 returning *
+`
 
 const PUTADMIN = `
-update admin SET adminname = $1 and password = $2
-where admin_id = $3
+update admin SET adminname = $1 and password = crypt($2,gen_salt('bf'))
+where admin_id = $3 returning *
 `
 module.exports = {
-    GETLOGIN, GETREGISTER ,PUTADMIN, GET,PUTUSER
+    GETLOGIN, GETREGISTER ,PUTADMIN, GET,PUTUSER ,PUT_USER_ACCOUNT
 }

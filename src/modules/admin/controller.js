@@ -79,7 +79,7 @@ const LOGIN = async (req,res) =>{
      res.status(200).json({
         status:200,
         message:'your a login',
-        token: sign(admin.id)
+        token: sign(admin.admin_id)
      })
    }else{
     res.status(403).json({
