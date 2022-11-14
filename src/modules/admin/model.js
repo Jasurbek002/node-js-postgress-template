@@ -1,10 +1,10 @@
 const { verify } = require('../../lib/jwt.js')
-const {fetch} =  require('../../lib/postgres.js')
+const {fetch, fetchAll} =  require('../../lib/postgres.js')
 const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT}  = require('./query.js')
 
 const GET = async () =>{
     try {
-        let user = await fetch(GETUSER)
+        let user = await fetchAll(GETUSER)
         return user 
     } catch (error) {
         console.log(error)
