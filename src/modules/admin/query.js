@@ -4,7 +4,7 @@ select a.* from admins as a where adminname = $1 and password = crypt($2,a.passw
 const GETREGISTER = `
 insert into admins(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
 `
-const GET = `
+const GETUSER = `
 select * from users
 `
 const PUTUSER = `
@@ -21,5 +21,5 @@ update admin SET adminname = $1 and password = crypt($2,gen_salt('bf'))
 where admin_id = $3 returning *
 `
 module.exports = {
-    GETLOGIN, GETREGISTER ,PUTADMIN, GET,PUTUSER ,PUT_USER_ACCOUNT
+    GETLOGIN, GETREGISTER ,PUTADMIN, GETUSER,PUTUSER ,PUT_USER_ACCOUNT
 }

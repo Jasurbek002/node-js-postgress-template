@@ -44,7 +44,6 @@ const LOGIN = async ({adminname,password}) =>{
     }
     
 }
-
 const REGISTER = async ({username,password,gender},{token}) =>{
         try {
             if(token && token !== null){
