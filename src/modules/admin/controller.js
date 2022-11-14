@@ -79,7 +79,7 @@ const LOGIN = async (req,res) =>{
      res.status(200).json({
         status:200,
         message:'your a login',
-        token: sign(admin.admin_id)
+        token: sign({id:admin.admin_id,status:admin.status})
      })
    }else{
     res.status(403).json({
@@ -98,7 +98,7 @@ const REGISTER = async (req,res) =>{
       res.status(201).json({
          status:201,
          message:'your a registred',
-         token: sign({id:admin.id,status:admin.status})
+         token: sign({id:admin.admin_id,status:admin.status})
       })
     }else{
      res.status(403).json({
