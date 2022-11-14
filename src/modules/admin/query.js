@@ -5,7 +5,8 @@ const GETREGISTER = `
 insert into admins(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
 `
 const GETUSER = `
-select * from users
+select u.*,b.* from users as u 
+left join balance as b on b.user_id = u.user_id
 `
 const PUTUSER = `
 update balance  SET score = $1 

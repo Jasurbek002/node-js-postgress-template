@@ -1,3 +1,4 @@
+const { verify } = require('../../lib/jwt.js')
 const {fetch} =  require('../../lib/postgres.js')
 const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT}  = require('./query.js')
 
@@ -22,10 +23,12 @@ const PUT_USER = async ({username,lastname,password,email,score},{userId}) =>{
     }
 }
 
-const PUT = async ({adminname,password,status},{adminId}) =>{
+const PUT = async ({adminname,password},{token}) =>{
     try {
+        let {id,status} = verify(token)
        if(status === 'admin'){
-        let admin = await fetch(PUTADMIN,adminname,password,adminId)
+        let admin = await fetch(PUTADMIN,adminname,password,id)
+        delete admin.password
         return admin
        }else{
         return 'you are not admin!'
@@ -44,10 +47,12 @@ const LOGIN = async ({adminname,password}) =>{
     }
     
 }
-const REGISTER = async ({username,password,gender},{token}) =>{
+const REGISTER = async ({adminname,password},{token}) =>{
         try {
-            if(token && token !== null){
-               let admin = await fetch(GETREGISTER,username,password,gender)
+            let {status} = verify(token)
+            if(status === 'admin'){
+               let admin = await fetch(GETREGISTER,adminname,password)
+               delete admin.password
                return admin
             }
         } catch (error) {

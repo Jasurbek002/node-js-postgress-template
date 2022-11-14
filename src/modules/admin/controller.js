@@ -54,7 +54,7 @@ try {
 
 const PUT = async (req,res) =>{
    try {
-     let admin = model.PUT(req.body,req.params) 
+     let admin = model.PUT(req.body,req.headers) 
      if(admin){
       res.status(200).json({
          status:200,
@@ -93,12 +93,12 @@ const LOGIN = async (req,res) =>{
 
 
 const REGISTER = async (req,res) =>{
-    let admin =  await model.REGISTER(req.body)
+    let admin =  await model.REGISTER(req.body,req.headers)
     if(admin){
       res.status(201).json({
          status:201,
          message:'your a registred',
-         token: sign(admin.id)
+         token: sign({id:admin.id,status:admin.status})
       })
     }else{
      res.status(403).json({
