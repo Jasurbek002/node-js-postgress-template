@@ -13,7 +13,7 @@ update balance  SET score = $1
 where user_id = $2 returning *
 `
 const PUT_USER_ACCOUNT = `
-update users SET username = $1, lastname = $2, password = crypt($3,gen_salt('bf')), email = $4
+update users SET username = $1, lastname = $2, password = $3, email = $4
 where user_id = $5 returning *
 `
 

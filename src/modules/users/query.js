@@ -1,12 +1,12 @@
 
 
 const GETLOGIN = `
-select u.* from users as u where email = $1 and password = crypt($2, u.password)
+select u.* from users as u where email = $1 and password = $2
 `
 
 const GETREGISTER = `
 insert into users(username,lastname,password,contact,email,country,brithday) 
-values ($1,$2,crypt($3,gen_salt('bf')),$4,$5,$6,$7) returning *
+values ($1,$2,$3,$4,$5,$6,$7) returning *
 `
 const GETUSER = `
 select u.*,b.balance_id,b.score from users as u
