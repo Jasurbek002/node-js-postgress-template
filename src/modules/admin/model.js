@@ -1,6 +1,6 @@
 const { verify } = require('../../lib/jwt.js')
 const {fetch, fetchAll} =  require('../../lib/postgres.js')
-const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT}  = require('./query.js')
+const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT, GET_ONE_USER, DELETE_ONE_USER}  = require('./query.js')
 
 const GET = async () =>{
     try {
@@ -11,13 +11,41 @@ const GET = async () =>{
     }
 }
 
-const PUT_USER = async ({username,lastname,password,email,score},{userId}) =>{
+const PUT_USER = async ({username,lastname,password,email,score},{userId},{token}) =>{
     try {
-        let user = await fetch(PUT_USER_ACCOUNT,username,lastname,password,email,userId)
-        let putUser = await fetch(PUTUSER,score,userId)
-        user.balance = putUser.score
-        delete user.password
-        return user
+        let {status} = verify(token);
+        if(status === 'admin'){
+            let oldUser = await fetch(GET_ONE_USER,userId);
+            let user = await fetch(PUT_USER_ACCOUNT,
+                username ? username : oldUser.username,
+                lastname ? lastname : oldUser.lastname,
+                password ? password : oldUser.password,
+                email ? email : oldUser.email,
+                userId);
+            let putUser = await fetch(PUTUSER,
+                score ? score : oldUser.score,
+                userId);
+            user.balance = putUser.score;
+            return user;
+        }else{
+            return null;
+        }
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const DELETE = async ({token},{userId}) =>{
+    try {
+        let {status} = verify(token)
+        if(status === 'admin'){
+            let deleteUser = await fetch(DELETE_ONE_USER,user = 'no active',userId)
+            return deleteUser
+        }else{
+            return 'your are not admin!'
+        }
     } catch (error) {
         console.log(error)
     }
@@ -61,5 +89,5 @@ const REGISTER = async ({adminname,password},{token}) =>{
 }
 
 module.exports ={
-   LOGIN ,REGISTER, GET , PUT ,PUT_USER
+   LOGIN ,REGISTER, GET , PUT ,PUT_USER, DELETE
 }

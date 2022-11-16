@@ -22,6 +22,7 @@ create table users(
    country varchar(150) not null,
    brithday varchar(30) not null,
    avatar text,
+   status varchar(50) default 'active',
    created_at timestamp default current_timestamp
 );
 
@@ -37,7 +38,7 @@ create table balance(
 
 insert into users(username,lastname,password,contact,email,country,brithday)
  values 
- ('victor','salamon',crypt('12345678',gen_salt('bf')),'+908277777','josh@gmail.com','Uzbekistan','10-20-2100');
+ ('victor','salamon','12345678','+908277777','josh@gmail.com','Uzbekistan','10-20-2100');
 
  insert into balance(user_id,score) 
  values (1,10000);

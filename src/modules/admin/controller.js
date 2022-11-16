@@ -4,8 +4,8 @@ const {sign} =  require('../../lib/jwt.js')
 
 const PUT_USER = async (req,res) =>{
 try {
-   if(req.body.status === 'admin'){
-      let putUser = await model.PUT_USER(req.body,req.params)
+  
+      let putUser = await model.PUT_USER(req.body,req.params,req.headers)
       if(putUser){
          res.status(201).json({
             status:201,
@@ -19,15 +19,31 @@ try {
             data:null
          })
       }
+  
+} catch (error) {
+   console.log(error)
+}
+}
+
+
+const DELETE = async (req,res) =>{
+try {
+   let deleteUser = await model.DELETE(req.headers,req.params)
+   if(deleteUser){
+      res.status(203).json({
+         status:203,
+         message:"user deleted!",
+         data:deleteUser
+      })
    }else{
-      res.status(403).json({
-         status:403,
-         message:'you are not admin!',
+      res.status(404).json({
+         status:404,
+         message:"user not found",
          data:null
       })
    }
 } catch (error) {
-   console.log(error)
+   
 }
 }
 
@@ -111,5 +127,5 @@ const REGISTER = async (req,res) =>{
 
 
 module.exports = {
-    LOGIN , REGISTER , GET , PUT , PUT_USER
+    LOGIN , REGISTER , GET , PUT , PUT_USER ,DELETE
 }
