@@ -1,7 +1,8 @@
 
 
 const GETLOGIN = `
-select u.* from users as u where email = $1 and password = $2
+select u.* from users as u
+ where email = $1 and password = $2 and status = 'active'
 `
 
 const GETREGISTER = `
@@ -11,7 +12,7 @@ values ($1,$2,$3,$4,$5,$6,$7) returning *
 const GETUSER = `
 select u.*,b.balance_id,b.score from users as u
 left join balance as b on b.user_id = u.user_id
-where u.user_id = $1
+where u.user_id = $1 and status = 'active'
 `
 
 
