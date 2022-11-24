@@ -9,4 +9,6 @@ router.put('/admin/:adminId',controller.PUT)
 router.put('/admin/user/account/:userId',controller.PUT_USER)
 router.delete('/admin/user/delete/:userId',controller.DELETE)
 
+router.get('/user/balance/pending',controller.PENDING)
+
 module.exports = router

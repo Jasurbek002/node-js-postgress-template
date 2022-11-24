@@ -1,6 +1,29 @@
 const { verify } = require('../../lib/jwt.js')
 const {fetch, fetchAll} =  require('../../lib/postgres.js')
-const {GETLOGIN,GETREGISTER,PUTADMIN,GETUSER,PUTUSER,PUT_USER_ACCOUNT, GET_ONE_USER, DELETE_ONE_USER}  = require('./query.js')
+const {GETLOGIN,
+    GETREGISTER,
+    PUTADMIN,
+    GETUSER,
+    PUTUSER,
+    PUT_USER_ACCOUNT, 
+    GET_ONE_USER, 
+    DELETE_ONE_USER,GETPENDING
+}  = require('./query.js')
+
+
+const PENDING = async ({token}) =>{
+   try {
+    let {status} = verify(token)
+    if(status === 'admin'){
+        let pending = await fetchAll(GETPENDING)
+        return pending
+    }else{
+        return {status:403,message:'your are not admin!'}
+    }
+   } catch (error) {
+    console.log(error)
+   }
+}
 
 const GET = async () =>{
     try {
@@ -89,5 +112,5 @@ const REGISTER = async ({adminname,password},{token}) =>{
 }
 
 module.exports ={
-   LOGIN ,REGISTER, GET , PUT ,PUT_USER, DELETE
+   LOGIN ,REGISTER, GET , PUT ,PUT_USER, DELETE,PENDING
 }

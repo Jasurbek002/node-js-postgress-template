@@ -32,6 +32,10 @@ const PUTADMIN = `
 update admin SET adminname = $1 and password = crypt($2,gen_salt('bf'))
 where admin_id = $3 returning *
 `
+
+const GETPENDING = `
+select * from temporary  where status = 'pending'
+`
 module.exports = {
     GETLOGIN,
      GETREGISTER ,
@@ -39,5 +43,6 @@ module.exports = {
      GETUSER,PUTUSER 
      ,PUT_USER_ACCOUNT, 
      GET_ONE_USER,
-     DELETE_ONE_USER
+     DELETE_ONE_USER,
+     GETPENDING
 }

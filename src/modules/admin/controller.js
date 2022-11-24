@@ -126,6 +126,28 @@ const REGISTER = async (req,res) =>{
  }
 
 
+const PENDING =async (req,res) =>{
+try {
+   let pendingBalance = await model.PENDING(req.headers)
+   if(pendingBalance){
+      res.status(200).json({
+         status:200,
+         message:'succsess!',
+         data:pendingBalance
+      })
+   }else{
+      res.status(403).json({
+         status:403,
+         message:'Folbiddin!',
+         data:null
+      })
+   }
+} catch (error) {
+   
+}
+ }
+
+
 module.exports = {
-    LOGIN , REGISTER , GET , PUT , PUT_USER ,DELETE
+    LOGIN , REGISTER , GET , PUT , PUT_USER ,DELETE,PENDING
 }
