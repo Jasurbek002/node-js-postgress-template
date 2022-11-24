@@ -143,11 +143,108 @@ try {
       })
    }
 } catch (error) {
-   
+   console.log(error)
 }
  }
 
 
+ const SUCCESSFUL = async (req,res) =>{
+   try {
+      let successfulBalance = await model.SUCCESSFUL(req.headers)
+      if(successfulBalance){
+         res.status(200).json({
+            status:200,
+            message:'succsess!',
+            data:successfulBalance
+         })
+      }else{
+         res.status(403).json({
+            status:403,
+            message:'Folbiddin!',
+            data:null
+         })
+      }
+   } catch (error) {
+      console.log(error)
+   }
+    }
+
+    const REJECTED = async (req,res) =>{
+      try {
+         let rejectfulBalance = await model.REJECTED(req.headers)
+         if(rejectfulBalance){
+            res.status(200).json({
+               status:200,
+               message:'succsess!',
+               data:rejectfulBalance
+            })
+         }else{
+            res.status(403).json({
+               status:403,
+               message:'Folbiddin!',
+               data:null
+            })
+         }
+      } catch (error) {
+         console.log(error)
+      }
+       }
+
+       const PUT_SUCCESSFUL = async (req,res) =>{
+         try {
+            let rejectfulBalance = await model.PUT_SUCCESSFUL(req.headers,req.params)
+            if(rejectfulBalance){
+               res.status(200).json({
+                  status:200,
+                  message:'succsess!',
+                  data:rejectfulBalance
+               })
+            }else{
+               res.status(403).json({
+                  status:403,
+                  message:'Folbiddin!',
+                  data:null
+               })
+            }
+         } catch (error) {
+            console.log(error)
+         }
+          }
+
+          const PUT_REJECTED = async (req,res) =>{
+            try {
+               let rejectfulBalance = await model.PUT_REJECTED(req.headers,req.params)
+               if(rejectfulBalance){
+                  res.status(200).json({
+                     status:200,
+                     message:'succsess!',
+                     data:rejectfulBalance
+                  })
+               }else{
+                  res.status(403).json({
+                     status:403,
+                     message:'Folbiddin!',
+                     data:null
+                  })
+               }
+            } catch (error) {
+               console.log(error)
+            }
+             }
+
+
+
+
 module.exports = {
-    LOGIN , REGISTER , GET , PUT , PUT_USER ,DELETE,PENDING
+    LOGIN,
+    REGISTER,
+    GET,
+    PUT,
+    PUT_USER,
+    DELETE,
+    PENDING,
+    SUCCESSFUL,
+    REJECTED,
+    PUT_SUCCESSFUL,
+    PUT_REJECTED
 }

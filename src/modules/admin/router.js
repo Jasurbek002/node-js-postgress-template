@@ -9,6 +9,13 @@ router.put('/admin/:adminId',controller.PUT)
 router.put('/admin/user/account/:userId',controller.PUT_USER)
 router.delete('/admin/user/delete/:userId',controller.DELETE)
 
+// user balance get status
 router.get('/user/balance/pending',controller.PENDING)
+router.get('/user/balance/successful',controller.SUCCESSFUL)
+router.get('/user/balance/rejected',controller.REJECTED)
+
+// user balance put stataus
+router.put('/user/balance/successful/:userId',controller.PUT_SUCCESSFUL)
+router.put('/user/balance/rejected/:userId',controller.PUT_REJECTED)
 
 module.exports = router

@@ -36,13 +36,33 @@ where admin_id = $3 returning *
 const GETPENDING = `
 select * from temporary  where status = 'pending'
 `
+const GETSUCCESSFUL = `
+select * from temporary  where status = 'successful'
+`
+const GETREJECTED = `
+select * from temporary  where status = 'rejected'
+`
+const GET_PUT_SUCCESSFUL = `
+update temporary SET status = 'successful'
+where user_id = $1 returning *
+`
+
+const GET_PUT_REJECTED = `
+update temporary SET status = 'rejected'
+where user_id = $1 returning *
+`
+
 module.exports = {
     GETLOGIN,
      GETREGISTER ,
      PUTADMIN, 
-     GETUSER,PUTUSER 
-     ,PUT_USER_ACCOUNT, 
+     GETUSER,PUTUSER ,
+     PUT_USER_ACCOUNT, 
      GET_ONE_USER,
      DELETE_ONE_USER,
-     GETPENDING
+     GETPENDING,
+     GETSUCCESSFUL,
+     GETREJECTED,
+     GET_PUT_SUCCESSFUL,
+     GET_PUT_REJECTED
 }

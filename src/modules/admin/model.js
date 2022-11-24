@@ -7,7 +7,13 @@ const {GETLOGIN,
     PUTUSER,
     PUT_USER_ACCOUNT, 
     GET_ONE_USER, 
-    DELETE_ONE_USER,GETPENDING
+    DELETE_ONE_USER,
+    GETPENDING,
+    GETSUCCESSFUL,
+    GETREJECTED,
+    GET_PUT_SUCCESSFUL,
+    GET_PUT_REJECTED,
+
 }  = require('./query.js')
 
 
@@ -24,6 +30,62 @@ const PENDING = async ({token}) =>{
     console.log(error)
    }
 }
+
+const PUT_SUCCESSFUL = async ({token},{userId}) =>{
+    try {
+    let {status} = verify(token)
+    if(status === 'admin'){
+       let put_pending_user = await fetch(GET_PUT_SUCCESSFUL,userId)
+       return put_pending_user
+    }else{
+       return {status:403,message:'your are not admin!'}
+    }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const PUT_REJECTED = async ({token},{userId}) =>{
+    try {
+    let {status} = verify(token)
+    if(status === 'admin'){
+       let put_pending_user = await fetch(GET_PUT_REJECTED,userId)
+       return put_pending_user
+    }else{
+       return {status:403,message:'your are not admin!'}
+    }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+const SUCCESSFUL = async ({token}) =>{
+    try {
+     let {status} = verify(token)
+     if(status === 'admin'){
+         let pending = await fetchAll(GETSUCCESSFUL)
+         return pending
+     }else{
+         return {status:403,message:'your are not admin!'}
+     }
+    } catch (error) {
+     console.log(error)
+    }
+ }
+
+ const REJECTED = async ({token}) =>{
+    try {
+     let {status} = verify(token)
+     if(status === 'admin'){
+         let pending = await fetchAll(GETREJECTED)
+         return pending
+     }else{
+         return {status:403,message:'your are not admin!'}
+     }
+    } catch (error) {
+     console.log(error)
+    }
+ }
 
 const GET = async () =>{
     try {
@@ -112,5 +174,15 @@ const REGISTER = async ({adminname,password},{token}) =>{
 }
 
 module.exports ={
-   LOGIN ,REGISTER, GET , PUT ,PUT_USER, DELETE,PENDING
+   LOGIN,
+   REGISTER,
+   GET ,
+   PUT ,
+   PUT_USER, 
+   DELETE,
+   PENDING,
+   SUCCESSFUL,
+   REJECTED,
+   PUT_SUCCESSFUL,
+   PUT_REJECTED
 }
