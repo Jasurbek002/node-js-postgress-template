@@ -13,6 +13,7 @@ const {GETLOGIN,
     GETREJECTED,
     GET_PUT_SUCCESSFUL,
     GET_PUT_REJECTED,
+    GET_USER_BALANCE
 
 }  = require('./query.js')
 
@@ -35,7 +36,14 @@ const PUT_SUCCESSFUL = async ({token},{userId}) =>{
     try {
     let {status} = verify(token)
     if(status === 'admin'){
+        let oldUserScore = await fetch(GET_USER_BALANCE,userId)
        let put_pending_user = await fetch(GET_PUT_SUCCESSFUL,userId)
+       let addScore = Number(put_pending_user.temp_score) 
+       oldBalence = Number(oldUserScore)
+       oldBalence += addScore
+       console.log(oldUserScore)
+       let newUserBalance = await fetch(PUTUSER,oldBalence,userId)
+       put_pending_user.score = newUserBalance.score
        return put_pending_user
     }else{
        return {status:403,message:'your are not admin!'}

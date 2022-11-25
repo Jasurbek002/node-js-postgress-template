@@ -5,7 +5,7 @@ create extension pgcrypto;
 drop table if exists admins;
 create table admins(
    admin_id serial primary key,
-   adminname varchar(40) not null,
+   adminname varchar(40) not null ,
    password varchar(60) not null,
    status varchar(50) default 'admin',
    created_at timestamp default current_timestamp
@@ -48,10 +48,10 @@ insert into users(username,lastname,password,contact,email,country,brithday)
  ('victor','salamon','12345678','+908277777','josh@gmail.com','Uzbekistan','10-20-2100');
 
  insert into balance(user_id,score) 
- values (1,10000);
+ values (2,10000);
 
  insert into admins(adminname,password)
  values ('admin',crypt('12345678',gen_salt('bf')));
  
  insert into temporary(user_id,temp_score) 
- values (10,200);
+ values (1,200);

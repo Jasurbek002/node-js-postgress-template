@@ -19,6 +19,9 @@ const PUTUSER = `
 update balance  SET score = $1 
 where user_id = $2 returning *
 `
+const GET_USER_BALANCE = `
+select * from balance where user_id = $1
+`
 const DELETE_ONE_USER = `
 update users SET status = $1
 where user_id = $2 returning *
@@ -59,6 +62,7 @@ module.exports = {
      GETUSER,PUTUSER ,
      PUT_USER_ACCOUNT, 
      GET_ONE_USER,
+     GET_USER_BALANCE,
      DELETE_ONE_USER,
      GETPENDING,
      GETSUCCESSFUL,
