@@ -12,3 +12,8 @@ async function ADD_BALANCE({tempscore},{token}){
     console.log(error)
   }
 }
+
+
+module.exports = {
+  ADD_BALANCE
+}
