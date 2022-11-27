@@ -4,6 +4,7 @@ select a.* from admins as a where adminname = $1 and password = crypt($2,a.passw
 const GETREGISTER = `
 insert into admins(adminname,password) values($1,crypt($2,gen_salt('bf'))) returning *
 `
+
 const GETUSER = `
 select u.*,b.* from users as u 
 left join balance as b on b.user_id = u.user_id
