@@ -32,17 +32,19 @@ const PENDING = async ({token}) =>{
    }
 }
 
-const PUT_SUCCESSFUL = async ({token},{userId}) =>{
+const PUT_SUCCESSFUL = async ({token},{userId},{tempId}) =>{
     try {
     let {status} = verify(token)
     if(status === 'admin'){
         let oldUserScore = await fetch(GET_USER_BALANCE,userId)
-       let put_pending_user = await fetch(GET_PUT_SUCCESSFUL,userId)
+       let put_pending_user = await fetch(GET_PUT_SUCCESSFUL,tempId)
        let addScore = Number(put_pending_user.temp_score) 
-       oldBalence = Number(oldUserScore)
-       oldBalence += addScore
+       oldUserScore = Number(oldUserScore.score)
        console.log(oldUserScore)
-       let newUserBalance = await fetch(PUTUSER,oldBalence,userId)
+       console.log(addScore)
+       oldUserScore += addScore
+       let newUserBalance = await fetch(PUTUSER,oldUserScore,userId)
+       console.log(newUserBalance)
        put_pending_user.score = newUserBalance.score
        return put_pending_user
     }else{

@@ -192,7 +192,7 @@ try {
 
        const PUT_SUCCESSFUL = async (req,res) =>{
          try {
-            let rejectfulBalance = await model.PUT_SUCCESSFUL(req.headers,req.params)
+            let rejectfulBalance = await model.PUT_SUCCESSFUL(req.headers,req.params,req.body)
             if(rejectfulBalance){
                res.status(200).json({
                   status:200,

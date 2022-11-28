@@ -21,7 +21,9 @@ update balance  SET score = $1
 where user_id = $2 returning *
 `
 const GET_USER_BALANCE = `
-select * from balance where user_id = $1
+select * from users as u
+left join balance as b on u.user_id = b.user_id
+ where u.user_id = $1
 `
 const DELETE_ONE_USER = `
 update users SET status = $1
@@ -48,12 +50,12 @@ select * from temporary  where status = 'rejected'
 `
 const GET_PUT_SUCCESSFUL = `
 update temporary SET status = 'successful'
-where user_id = $1 returning *
+where temporary_id = $1 returning *
 `
 
 const GET_PUT_REJECTED = `
 update temporary SET status = 'rejected'
-where user_id = $1 returning *
+where temporary_id = $1 returning *
 `
 
 module.exports = {
