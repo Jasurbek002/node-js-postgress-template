@@ -16,6 +16,6 @@ router.get('/user/balance/rejected',controller.REJECTED)
 
 // user balance put stataus
 router.put('/user/balance/successful/:userId',controller.PUT_SUCCESSFUL)
-router.put('/user/balance/rejected/:userId',controller.PUT_REJECTED)
+router.put('/user/balance/rejected/:tempId',controller.PUT_REJECTED)
 
 module.exports = router

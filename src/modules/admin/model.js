@@ -55,11 +55,11 @@ const PUT_SUCCESSFUL = async ({token},{userId},{tempId}) =>{
     }
 }
 
-const PUT_REJECTED = async ({token},{userId}) =>{
+const PUT_REJECTED = async ({token},{tempId}) =>{
     try {
     let {status} = verify(token)
     if(status === 'admin'){
-       let put_pending_user = await fetch(GET_PUT_REJECTED,userId)
+       let put_pending_user = await fetch(GET_PUT_REJECTED,tempId)
        return put_pending_user
     }else{
        return {status:403,message:'your are not admin!'}
