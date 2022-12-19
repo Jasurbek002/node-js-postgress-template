@@ -8,6 +8,7 @@ const PUT = async (req,res) =>{
             res.status(200).json({
                 status:200,
                 message:'SMS sent to email!',
+                id:code
             })
         }else{
             res.status(404).json({

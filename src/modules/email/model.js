@@ -30,8 +30,8 @@ const PUT = async ({email}) =>{
       })
 
       if(info){
-        await fetch(PUTQUERY,randomCode);
-        return info;
+          let code = await fetch(PUTQUERY,randomCode);
+        return code.code_id;
       }else{
         return null;
       }
