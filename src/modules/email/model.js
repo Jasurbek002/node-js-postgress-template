@@ -31,6 +31,9 @@ const PUT = async ({email}) =>{
 
       if(info){
           let code = await fetch(PUTQUERY,randomCode);
+          setTimeout(async () =>{
+            await fetch(DELETEQUERY,code.code_id);
+        },1000*120)
         return code.code_id;
       }else{
         return null;
@@ -45,8 +48,9 @@ const POST = async ({code},{codeId})=>{
     try {
         let response = await fetch(POSTQUERY,codeId,code);
         console.log(response)
+       
         if(response) {
-             return response && await fetch(DELETEQUERY,codeId) ;
+             return response && await fetch(DELETEQUERY,codeId);
         }else{
             return null;
         }
@@ -54,6 +58,8 @@ const POST = async ({code},{codeId})=>{
     } catch (error) {
         console.log(error)
     }
+
+    
 }
 
 
